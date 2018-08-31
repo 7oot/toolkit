@@ -27,7 +27,7 @@ var Storage = exports.Storage = function () {
 
     _classCallCheck(this, Storage);
 
-    var scope = global || window;
+    var scope = typeof global === 'undefined' ? window : global;
     this.prefix = prefix;
     this.type = storageType;
     this.handlerName = storageType + 'Storage';

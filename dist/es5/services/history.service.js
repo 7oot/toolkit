@@ -13,7 +13,7 @@ var _type = require('../utils/type');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var handler = global ? global.history : window.history;
+var handler = typeof global === 'undefined' ? window.history : global.history;
 var SUPPORTED = _type.type.object(handler);
 
 /**

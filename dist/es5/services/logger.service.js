@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37,8 +39,8 @@ var LoggerService = exports.LoggerService = function () {
 
     _classCallCheck(this, LoggerService);
 
-    var scope = global || window;
-    this.supported = scope['console'] === 'object';
+    var scope = typeof global === 'undefined' ? window : global;
+    this.supported = _typeof(scope['console']) === 'object';
     this.supportedMethod = {};
 
     methods.forEach(function (method) {
@@ -63,10 +65,6 @@ var LoggerService = exports.LoggerService = function () {
   _createClass(LoggerService, [{
     key: 'setLevel',
     value: function setLevel(logLevel) {
-      if (this.supported) {
-        this.info('Logger level', logLevel);
-      }
-
       this.logLevel = logLevel;
 
       // init all internal log function
@@ -75,6 +73,11 @@ var LoggerService = exports.LoggerService = function () {
       this.info = this.supportedMethod.info && this.logLevel >= LEVEL_INFO ? console.info.bind(console) : noop;
       this.log = this.supportedMethod.log && this.logLevel >= LEVEL_LOG ? console.log.bind(console) : noop;
       this.debug = this.supportedMethod.debug && this.logLevel >= LEVEL_DEBUG ? console.debug.bind(console) : noop;
+
+      if (this.supported) {
+        this.info('Logger level', logLevel);
+      }
+
       return this;
     }
   }]);

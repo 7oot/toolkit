@@ -6,8 +6,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _rxjs = require('rxjs');
 
-var _observable = require('rxjs/observable');
-
 var _type = require('../utils/type');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73,7 +71,7 @@ var FullscreenService = function () {
     this.onExit = new _rxjs.Subject();
 
     if (this.supported) {
-      (0, _observable.fromEvent)(scope, changeEvent).subscribe(function (event) {
+      (0, _rxjs.fromEvent)(scope, changeEvent).subscribe(function (event) {
         _this.onChange.next(event);
 
         if (!_this.isEnable) {

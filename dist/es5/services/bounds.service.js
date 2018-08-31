@@ -11,8 +11,6 @@ var _delay = require('../utils/delay');
 
 var _rxjs = require('rxjs');
 
-var _observable = require('rxjs/observable');
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var index = 0;
@@ -45,7 +43,7 @@ var BoundsService = exports.BoundsService = function () {
 
     this.detectBounding = function () {
       // trigger all boundings
-      (0, _observable.from)(_this.bounding).subscribe(function (bounding) {
+      (0, _rxjs.from)(_this.bounding).subscribe(function (bounding) {
         var nextBounding = _this.getBounding(bounding.element);
         bounding.subject.next(nextBounding);
       });

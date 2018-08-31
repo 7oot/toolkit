@@ -44,10 +44,6 @@ export class LoggerService {
    * @returns {LoggerService}
    */
   setLevel(logLevel) {
-    if (this.supported) {
-      this.info('Logger level', logLevel);
-    }
-
     this.logLevel = logLevel;
 
     // init all internal log function
@@ -65,6 +61,11 @@ export class LoggerService {
       this.supportedMethod.debug && this.logLevel >= LEVEL_DEBUG
         ? console.debug.bind(console)
         : noop;
+
+    if (this.supported) {
+      this.info('Logger level', logLevel);
+    }
+
     return this;
   }
 }

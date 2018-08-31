@@ -9,8 +9,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _observable = require('rxjs/observable');
-
 var _rxjs = require('rxjs');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35,7 +33,7 @@ var ViewportService = exports.ViewportService = function () {
 
     _classCallCheck(this, ViewportService);
 
-    this.scope = global || window;
+    this.scope = typeof global === 'undefined' ? window : global;
     this.isBrowser = (typeof document === 'undefined' ? 'undefined' : _typeof(document)) === 'object';
     this.document = this.isBrowser ? document : null;
     this.rootNode = this.scope;
@@ -43,13 +41,13 @@ var ViewportService = exports.ViewportService = function () {
 
     if (this.isBrowser) {
       // regist all vieport observer
-      this.onResize = (0, _observable.fromEvent)(this.scope, 'resize');
-      this.onVisiblityChange = (0, _observable.fromEvent)(this.scope, 'visibilitychange', function (event) {
+      this.onResize = (0, _rxjs.fromEvent)(this.scope, 'resize');
+      this.onVisiblityChange = (0, _rxjs.fromEvent)(this.scope, 'visibilitychange', function (event) {
         return !_this.document.hidden;
       });
 
       // scrolling observer
-      this.onScroll = (0, _observable.fromEvent)(this.rootNode, 'scroll');
+      this.onScroll = (0, _rxjs.fromEvent)(this.rootNode, 'scroll');
       this.onScrollTop = new _rxjs.BehaviorSubject(this.scrollTop);
 
       this.onScroll.subscribe(function (event) {
@@ -57,7 +55,7 @@ var ViewportService = exports.ViewportService = function () {
       });
 
       // delete observer
-      this.onDestory = (0, _observable.fromEvent)(this.rootNode, 'beforeunload');
+      this.onDestory = (0, _rxjs.fromEvent)(this.rootNode, 'beforeunload');
 
       // init scroll top value
       this.scrollTop = this.scrollTop;
