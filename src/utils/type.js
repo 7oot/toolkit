@@ -64,7 +64,7 @@ export const type = {
    * @returns {boolean}
    */
   array(value) {
-    return toString.call(value) === '[object Array]';
+    return Object.prototype.toString.call(value) === '[object Array]';
   },
 
   /**

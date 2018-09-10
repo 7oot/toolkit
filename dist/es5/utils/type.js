@@ -74,7 +74,7 @@ var type = exports.type = {
    * @returns {boolean}
    */
   array: function array(value) {
-    return toString.call(value) === '[object Array]';
+    return Object.prototype.toString.call(value) === '[object Array]';
   },
 
 
